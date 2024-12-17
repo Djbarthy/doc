@@ -203,7 +203,7 @@ paths:
                       description: Alíquota do ICMS em porcentagem
               examples:
                 Exemplo de lista de ICMS:
-                  value: |-
+                  value: 
                     [
                       {
                         "id_icms": 1,
@@ -271,7 +271,7 @@ paths:
                       description: Descrição da observação
               examples:
                 Exemplo OBSPESAGEM:
-                  value: |-
+                  value: 
                     [
                       {
                         "codigoobspesagem": "0001",

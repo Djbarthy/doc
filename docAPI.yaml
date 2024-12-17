@@ -826,7 +826,7 @@ paths:
             application/json:
               examples:
                 '400':
-                  value: |
+                  value: 
                     {
                       "erro": 400,
                       "motivo": "Bad request: Parâmetros inválidos"

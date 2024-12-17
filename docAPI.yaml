@@ -817,8 +817,8 @@ paths:
                 '200':
                   value:
                     {
-                      "classfornecedor": "A",
-                      "descricao": "MATERIA PRIMA"
+                      classfornecedor: "A",
+                      descricao: "MATERIA PRIMA"
                     }
         '400':
           description: Erro de requisição
@@ -826,7 +826,7 @@ paths:
             application/json:
               examples:
                 '400':
-                  value: 
+                  value:
                     {
                       "erro": 400,
                       "motivo": "Bad request: Parâmetros inválidos"

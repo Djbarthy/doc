@@ -1,16 +1,17 @@
 openapi: 3.0.3
 info:
-  title: Swagger Meddix - Meddix com e-Ship 
-  description: |
-    Esta é a API do Meddix, um sistema de integração desenvolvido pela ACABIT COMÉRCIO E TECNOLOGIA LTDA. Através desta API, é possível realizar diversas operações, como consulta de produtos ativos, atualização de lotes de produtos, consulta de produção interna por status e atualização de status de solicitações no Meddix.
-    
-    Alguns links úteis:
-    - [Site Acabit](http://acabit.com.br)
-
-    **Observação:** Algumas URIs não têm parâmetros explicitamente definidos na seção de parâmetros, pois os parâmetros estão presentes na própria URI. Por exemplo, em "http://192.168.0.64:8082/lotes/49712", o parâmetro após "/" é o número do lote a ser consultado.
-    
-     **Leganda:** As legendas para as Strings estão no final do documento.
-
+  title: Swagger Meddix - Meddix com e-Ship
+  description: >
+    Esta é a API do Meddix, um sistema de integração desenvolvido pela ACABIT
+    COMÉRCIO E TECNOLOGIA LTDA. Através desta API, é possível realizar diversas
+    operações, como consulta de produtos ativos, atualização de lotes de
+    produtos, consulta de produção interna por status e atualização de status de
+    solicitações no Meddix. Alguns links úteis: - [Site
+    Acabit](http://acabit.com.br) **Observação:** Algumas URIs não têm
+    parâmetros explicitamente definidos na seção de parâmetros, pois os
+    parâmetros estão presentes na própria URI. Por exemplo, em
+    "http://192.168.0.64:8082/lotes/49712", o parâmetro após "/" é o número do
+    lote a ser consultado.
   contact:
     email: suporte@acabit.com
   version: 3.0.0
@@ -23,8 +24,364 @@ tags:
     description: Operações relacionadas a lotes de produtos
   - name: solicitacoes
     description: Operações relacionadas a solicitações
+  - name: Fornecedores
+    description: Operações relacionadas a fornecedores
 paths:
-  /produtos:  # Início da definição da URI '/produtos'
+  /divisoes:
+    get:
+      summary: Consulta as divisões dos produtos
+      tags:
+        - produtos
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      description: ID da divisão
+                      maxLength: 4
+                    descricao:
+                      type: string
+                      description: Descrição da divisão
+              examples:
+                exemploFarmacia:
+                  summary: Exemplo de divisões
+                  value:
+                    - divisao: '0001'
+                      descricao: string
+                    - divisao: '0002'
+                      descricao: string
+                    - divisao: abc1
+                      descricao: string
+                    - divisao: abc2
+                      descricao: string
+        '400':
+          description: Erro
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  codigo:
+                    type: integer
+                    description: Código de erro
+                    example: 400
+                  motivo:
+                    type: string
+                    description: Motivo do erro
+                    example: Bad request
+  /familias:
+    get:
+      summary: Consulta as famílias dos produtos
+      tags:
+        - produtos
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    familia:
+                      type: string
+                      description: Código da família
+                      maxLength: 4
+                    descricao:
+                      type: string
+                      description: Descrição da família
+              examples:
+                exemploFarmacia:
+                  summary: Exemplo de famílias para farmácia de manipulação
+                  value:
+                    - familia: '0001'
+                      descricao: string
+                    - familia: '0002'
+                      descricao: string
+                    - familia: abc1
+                      descricao: string
+                    - familia: abc2
+                      descricao: string
+        '400':
+          description: Erro
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  codigo:
+                    type: integer
+                    description: Código de erro
+                    example: 400
+                  motivo:
+                    type: string
+                    description: Motivo do erro
+                    example: Bad request
+  /linhas:
+    get:
+      summary: Consulta as linhas dos produtos
+      tags:
+        - produtos
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    codigolinha:
+                      type: string
+                      description: Código da linha
+                      maxLength: 4
+                    descricao:
+                      type: string
+                      description: Descrição da linha
+                    comissaovarejo:
+                      type: number
+                      format: float
+                      description: Comissão de varejo
+              examples:
+                exemploLinhas:
+                  summary: Exemplo de linhas de produtos
+                  value:
+                    - codigolinha: L001
+                      descricao: string
+                      comissaovarejo: 5.5
+                    - codigolinha: L002
+                      descricao: string
+                      comissaovarejo: 7
+        '400':
+          description: Erro
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  codigo:
+                    type: integer
+                    description: Código de erro
+                    example: 400
+                  motivo:
+                    type: string
+                    description: Motivo do erro
+                    example: Bad request
+  /listaicms:
+    get:
+      summary: Consulta a lista de ICMS dos produtos
+      tags:
+        - produtos
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id_icms:
+                      type: integer
+                      description: ID do ICMS
+                    descricao:
+                      type: string
+                      description: Descrição do ICMS
+                    aliquota:
+                      type: number
+                      format: float
+                      description: Alíquota do ICMS em porcentagem
+              examples:
+                Exemplo de lista de ICMS:
+                  value: |-
+                    [
+                      {
+                        "id_icms": 1,
+                        "descricao": "ICMS 18%",
+                        "aliquota": 18.00
+                      },
+                      {
+                        "id_icms": 2,
+                        "descricao": "ICMS 12%",
+                        "aliquota": 12.00
+                      },
+                      {
+                        "id_icms": 3,
+                        "descricao": "ICMS 7%",
+                        "aliquota": 7.00
+                      },
+                      {
+                        "id_icms": 4,
+                        "descricao": "ICMS ISENTO",
+                        "aliquota": 0.00
+                      },
+                      {
+                        "id_icms": 5,
+                        "descricao": "ICMS ST",
+                        "aliquota": 0.00
+                      }
+                    ]
+        '400':
+          description: Erro
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  codigo:
+                    type: integer
+                    description: Código de erro
+                    example: 400
+                  motivo:
+                    type: string
+                    description: Motivo do erro
+                    example: Bad request
+  /observacoespesagens:
+    get:
+      summary: Consulta as observações de pesagens
+      tags:
+        - produtos
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    codigoobspesagem:
+                      type: string
+                      maxLength: 4
+                      description: Código da observação de pesagem
+                    descricao:
+                      type: string
+                      maxLength: 500
+                      description: Descrição da observação
+              examples:
+                Exemplo OBSPESAGEM:
+                  value: |-
+                    [
+                      {
+                        "codigoobspesagem": "0001",
+                        "descricao": "string"
+                      },
+                      {
+                        "codigoobspesagem": "0002",
+                        "descricao": "string"
+                      },
+                      {
+                        "codigoobspesagem": "0003",
+                        "descricao": "string"
+                      },
+                      {
+                        "codigoobspesagem": "0004",
+                        "descricao": "string"
+                      }
+                    ]
+        '400':
+          description: Erro
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  codigo:
+                    type: integer
+                    description: Código de erro
+                    example: 400
+                  motivo:
+                    type: string
+                    description: Motivo do erro
+                    example: Bad request
+  /observacoesrotulos:
+    get:
+      summary: Consulta as observações de rótulos
+      tags:
+        - produtos
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      description: ID da observação
+                    descricao:
+                      type: string
+                      description: Descrição da observação
+        '400':
+          description: Erro
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  codigo:
+                    type: integer
+                    description: Código de erro
+                    example: 400
+                  motivo:
+                    type: string
+                    description: Motivo do erro
+                    example: Bad request
+  /portariasprodutos:
+    get:
+      summary: Consulta as portarias dos produtos
+      tags:
+        - produtos
+      responses:
+        '200':
+          description: Sucesso
+        '400':
+          description: Erro
+  /setoresprodutos:
+    get:
+      summary: Consulta os setores dos produtos
+      tags:
+        - produtos
+      responses:
+        '200':
+          description: Sucesso
+        '400':
+          description: Erro
+  /unidades:
+    get:
+      summary: Consulta as unidades dos produtos
+      tags:
+        - produtos
+      responses:
+        '200':
+          description: Sucesso
+        '400':
+          description: Erro
+  /produtosnf:
+    get:
+      summary: Consulta os produtos de nota fiscal
+      tags:
+        - produtos
+      responses:
+        '200':
+          description: Sucesso
+        '400':
+          description: Erro
+  /produtos:
     get:
       summary: Consulta a lista de produtos ativos no Meddix
       tags:
@@ -38,18 +395,29 @@ paths:
             type: string
         - name: grupo
           in: query
-          description: Grupos de produtos (A = Acabado D = Drogaria E = Embalagem M = Matéria prima O = Outros R= Revenda S = Semi Acabados)
+          description: >
+            Grupos de produtos (A = Acabado D = Drogaria E = Embalagem M =
+            Matéria prima O = Outros R= Revenda S = Semi Acabados)
           required: false
           schema:
             type: string
-            enum: [A, D, E, M, O, R, S]
+            enum:
+              - A
+              - D
+              - E
+              - M
+              - O
+              - R
+              - S
         - name: tipodiluição
           in: query
           description: Tipo de diluição do produto 0 = Puro 1 = Diluído
           required: false
           schema:
             type: string
-            enum: ["0", "1"]
+            enum:
+              - '0'
+              - '1'
       responses:
         '200':
           description: Sucesso
@@ -58,7 +426,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  produtos:  # Exemplo de resposta adicionado
+                  produtos:
                     type: array
                     items:
                       type: object
@@ -98,10 +466,15 @@ paths:
                   motivo:
                     type: string
                     description: Motivo do erro
-                    example: "Bad request"
-    # Fim do método GET /produtos
-
-  /lotes/<codigoproduto>:  # Início da definição da URI '/lotes/{codigoproduto}'
+                    example: Bad request
+  /lotes/{codigoproduto}:
+    parameters:
+      - name: codigoproduto
+        in: path
+        required: true
+        description: Código do produto
+        schema:
+          type: string
     get:
       summary: Consulta a lista de lotes de um produto no Meddix
       tags:
@@ -171,9 +544,7 @@ paths:
                   motivo:
                     type: string
                     description: Motivo do erro
-                    example: "Bad request"
-
-  /lotes/(codigoproduto):  # Rota para atualização de lotes de produtos
+                    example: Bad request
     post:
       summary: Atualiza a lista de lotes produtos no Meddix
       tags:
@@ -207,13 +578,13 @@ paths:
                         description: Tipo
               example:
                 lotes:
-                  - diluicao: "0"
-                    filiallote: "001"
+                  - diluicao: '0'
+                    filiallote: '001'
                     idlote: 23011
                     quantidade: 1
                     tipo: 2
-                  - diluicao: "0"
-                    filiallote: "001"
+                  - diluicao: '0'
+                    filiallote: '001'
                     idlote: 23011
                     quantidade: 1
                     tipo: 1
@@ -232,7 +603,7 @@ paths:
                   motivo:
                     type: string
                     description: Motivo do retorno
-                    example: "Sucesso"
+                    example: Sucesso
         '400':
           description: Erro
           content:
@@ -247,9 +618,15 @@ paths:
                   motivo:
                     type: string
                     description: Motivo do erro
-                    example: "Bad request"
-
-  /solicitacoes/<status>/statuscomErro:  # Início da definição da URI '/solicitacoes/{status}/status'
+                    example: Bad request
+  /solicitacoes/{status}/statuscomErro:
+    parameters:
+      - name: status
+        in: path
+        required: true
+        description: Status da solicitação
+        schema:
+          type: string
     get:
       summary: Consulta produção interna por status
       tags:
@@ -269,7 +646,7 @@ paths:
                   motivo:
                     type: string
                     description: Motivo do retorno
-                    example: "Sucesso"
+                    example: Sucesso
         '400':
           description: Erro
           content:
@@ -284,172 +661,28 @@ paths:
                   motivo:
                     type: string
                     description: Motivo do erro
-                    example: "Bad request"
-    # Fim do método GET /solicitacoes/{status}/status
-
-  /solicitacoes/<filialsolicitacao>/<idsolicitacao>/solicitação:  # Início da definição da URI '/solicitacoes/{filialsolicitacao}/{idsolicitacao}/solicitação'
-    get:
-      summary: Consulta produção interna pelo ID
-      tags:
-        - solicitacoes
-      responses:
-        '200':
-          description: Sucesso
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  solicitacoes:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        filialsolicitacao:
-                          type: string
-                          description: Filial da solicitação
-                        idsolicitacao:
-                          type: integer
-                          description: ID da solicitação
-                        codigoproduto:
-                          type: string
-                          description: Código do produto
-                        descricao:
-                          type: string
-                          description: Descrição do produto
-                        grupo:
-                          type: string
-                          description: Grupo do produto
-                        quantidade:
-                          type: integer
-                          description: Quantidade solicitada
-                        unidade:
-                          type: string
-                          description: Unidade do produto
-                        datasolicitacao:
-                          type: string
-                          format: date
-                          description: Data da solicitação
-                        forma:
-                          type: string
-                          description: Forma da solicitação
-                        solicitante:
-                          type: string
-                          description: Nome do solicitante
-                        composicao:
-                          type: array
-                          items:
-                            type: object
-                            properties:
-                              codigoproduto:
-                                type: string
-                                description: Código do produto
-                              diluicao:
-                                type: integer
-                                description: Diluição do produto
-                              descricao:
-                                type: string
-                                description: Descrição do produto
-                              quantidade:
-                                type: number
-                                description: Quantidade do produto
-                              unidade:
-                                type: string
-                                description: Unidade do produto
-                              filiallote:
-                                type: string
-                                description: Filial do lote
-                              idlote:
-                                type: integer
-                                description: ID do lote
-                              codigolote:
-                                type: string
-                                description: Código do lote
-                    example:
-                      solicitacoes:
-                        - filialsolicitacao: "001"
-                          idsolicitacao: 523
-                          codigoproduto: "5149"
-                          descricao: "AGAR AGAR 60CAPS 300MG"
-                          grupo: "A"
-                          quantidade: 60
-                          unidade: "UN"
-                          datasolicitacao: "2022-12-20"
-                          forma: "Unidades"
-                          solicitante: "MATHEUS"
-                          composicao:
-                            - codigoproduto: "50878"
-                              diluicao: 0
-                              descricao: "AGAR AGAR"
-                              quantidade: 18
-                              unidade: "G"
-                              filiallote: "001"
-                              idlote: 8129
-                              codigolote: "0018129"
-                            - codigoproduto: "86009"
-                              diluicao: 0
-                              descricao: "EXCIPIENTE INSOLUVEL COM NOME MUITO LONG"
-                              quantidade: 5.1542
-                              unidade: "G"
-                              filiallote: "001"
-                              idlote: 23077
-                              codigolote: "00123077"
-                            - codigoproduto: "5216"
-                              diluicao: 0
-                              descricao: "CAP INCOLOR  1"
-                              quantidade: 60
-                              unidade: "CAP"
-                              filiallote: "001"
-                              idlote: 9560
-                              codigolote: "0019560"
-                            - codigoproduto: "3591"
-                              diluicao: 0
-                              descricao: "EMB CAPS   75"
-                              quantidade: 1
-                              unidade: "UN"
-                              filiallote: "001"
-                              idlote: 24040
-                              codigolote: "00124040"
-        '400':
-          description: Erro
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  erro:
-                    type: integer
-                    description: Código de retorno
-                    example: 400
-                  motivo:
-                    type: string
-                    description: Motivo do retorno
-                    example: "erro: 404
-                              motivo: Not found
-                              "
-    # Fim do método GET /solicitacoes/{filialsolicitacao}/{idsolicitacao}/solicitação
-
-  /solicitacoes/<filialsolicitacao>/<idsolicitacao>/status:  # Início da definição da URI '/solicitacoes/{filialsolicitacao}/{idsolicitacao}/status'
+                    example: Bad request
+  /solicitacoes/{filialsolicitacao}/{idsolicitacao}/solicitação:
+    parameters:
+      - name: filialsolicitacao
+        in: path
+        required: true
+        description: Filial da solicitação
+        schema:
+          type: string
+      - name: idsolicitacao
+        in: path
+        required: true
+        description: ID da solicitação
+        schema:
+          type: string
     get:
       summary: Consulta de status de solicitações
       tags:
         - solicitacoes
       responses:
         '200':
-          description: Sucesso
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  idstatus:
-                    type: integer
-                    description: ID do status
-                    example: 7
-                  status:
-                    type: string
-                    description: Status da solicitação
-                    example: "Pronto"
+          description: Successful operation
         '400':
           description: Erro
           content:
@@ -464,14 +697,59 @@ paths:
                   motivo:
                     type: string
                     description: Motivo do retorno
-                    example: "erro: 400
-                              motivo: Bad request
-                              "
-    # Fim do método GET /solicitacoes/{filialsolicitacao}/{idsolicitacao}/status
-
-  /solicitacoes/<filialsolicitacao>/<idsolicitacao>:  # Início da definição da URI '/solicitacoes/{filialsolicitacao}/{idsolicitacao}'
+                    example: 'Bad request: ID da solicitação inválido'
+  /solicitacoes/{filialsolicitacao}/{idsolicitacao}/status:
+    parameters:
+      - name: filialsolicitacao
+        in: path
+        required: true
+        description: Filial da solicitação
+        schema:
+          type: string
+      - name: idsolicitacao
+        in: path
+        required: true
+        description: ID da solicitação
+        schema:
+          type: string
+    get:
+      summary: Consulta de status de solicitações
+      tags:
+        - solicitacoes
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Erro
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  erro:
+                    type: integer
+                    description: Código de retorno
+                    example: 400
+                  motivo:
+                    type: string
+                    description: Motivo do retorno
+                    example: 'Bad request: ID da solicitação inválido'
+  /solicitacoes/{filialsolicitacao}/{idsolicitacao}:
+    parameters:
+      - name: filialsolicitacao
+        in: path
+        required: true
+        description: Filial da solicitação
+        schema:
+          type: string
+      - name: idsolicitacao
+        in: path
+        required: true
+        description: ID da solicitação
+        schema:
+          type: string
     post:
-      summary: Atualização de status 
+      summary: Atualização de status
       tags:
         - solicitacoes
       requestBody:
@@ -484,7 +762,16 @@ paths:
                 idstatus:
                   type: integer
                   description: Código do status
-                  enum: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+                  enum:
+                    - 1
+                    - 2
+                    - 3
+                    - 4
+                    - 5
+                    - 6
+                    - 7
+                    - 8
+                    - 9
       responses:
         '200':
           description: Sucesso
@@ -500,7 +787,7 @@ paths:
                   motivo:
                     type: string
                     description: Motivo do retorno
-                    example: "Sucess"
+                    example: Sucesso
         '400':
           description: Erro
           content:
@@ -515,10 +802,143 @@ paths:
                   motivo:
                     type: string
                     description: Motivo do erro
-                    example: "ID do status inválido "
-    # Fim do método POST /solicitacoes/{filialsolicitacao}/{idsolicitacao}
-# Fim da definição da URI '/solicitacoes/{filialsolicitacao}/{idsolicitacao}'
-
+                    example: ID do status inválido
+  /classesfornecedor:
+    get:
+      summary: Retorna a classe de fornecedores.
+      tags:
+        - Fornecedores
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              examples:
+                '200':
+                  value: |
+                    {
+                      "classfornecedor": "A",
+                      "descricao": "MATERIA PRIMA"
+                    }
+        '400':
+          description: Erro de requisição
+          content:
+            application/json:
+              examples:
+                '400':
+                  value: |
+                    {
+                      "erro": 400,
+                      "motivo": "Bad request: Parâmetros inválidos"
+                    }
+  /produtosunidades:
+    get:
+      summary: Consulta as unidades dos produtos
+      tags:
+        - produtos
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      description: ID da unidade
+                    descricao:
+                      type: string
+                      description: Descrição da unidade
+        '400':
+          description: Erro
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  codigo:
+                    type: integer
+                    description: Código de erro
+                    example: 400
+                  motivo:
+                    type: string
+                    description: Motivo do erro
+                    example: Bad request
+  /obspesagensprodutos:
+    get:
+      summary: Consulta as observações de pesagens dos produtos
+      tags:
+        - produtos
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      description: ID da observação
+                    descricao:
+                      type: string
+                      description: Descrição da observação
+        '400':
+          description: Erro
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  codigo:
+                    type: integer
+                    description: Código de erro
+                    example: 400
+                  motivo:
+                    type: string
+                    description: Motivo do erro
+                    example: Bad request
+  /sinonimos:
+    get:
+      summary: Consulta os sinônimos dos produtos
+      tags:
+        - produtos
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      description: ID do sinônimo
+                    descricao:
+                      type: string
+                      description: Descrição do sinônimo
+        '400':
+          description: Erro
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  codigo:
+                    type: integer
+                    description: Código de erro
+                    example: 400
+                  motivo:
+                    type: string
+                    description: Motivo do erro
+                    example: Bad request
 components:
   schemas:
     SignificadoID-Status:

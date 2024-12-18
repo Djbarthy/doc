@@ -364,15 +364,13 @@ paths:
                     id_produto:
                       type: integer
                       description: ID do produto
-                    seq_sinonimo:
+                    id_sinonimo:
                       type: integer
-                      description: Sequência do sinônimo
+                      description: ID do sinonimo
                     descricao:
                       type: string
                       description: Descrição do sinônimo
-                    fatorequivalencia:
-                      type: number
-                      description: Fator de equivalência do sinônimo
+                    
         '400':
           description: Erro
           content:

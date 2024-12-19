@@ -27,14 +27,14 @@ tags:
     description: Operações relacionadas a clientes
   - name: veiculos
     description: Operações relacionadas a veículos
-  - name: requisicao
+  - name: requisição
     description: Operações relacionadas a requisições
 paths:
   /cid:
     get:
       summary: Consulta informações do CID
       tags:
-        - requisicao
+        - requisição
       responses:
         '200':
           description: Sucesso
@@ -536,7 +536,7 @@ paths:
       description: ''
       parameters: []
       tags:
-        - requisicao
+        - requisição
       responses:
         '200':
           description: Sucesso

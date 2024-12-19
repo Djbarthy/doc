@@ -531,8 +531,271 @@ paths:
                     type: string
                     description: Motivo do erro
                     example: "Bad request"
+  /requisicoes:
+    get:
+      description: ''
+      parameters: []
+      tags:
+        - requisicao
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id_requisicaoweb:
+                    type: integer
+                    description: ID da requisição web
+                  filialorigem:
+                    type: string
+                    description: Filial de origem
+                    maxLength: 3
+                  id_requisicao:
+                    type: integer
+                    description: ID da requisição
+                  id_venda:
+                    type: integer
+                    description: ID da venda
+                  cliente:
+                    type: object
+                    description: Dados do cliente
+                    properties:
+                      id_cliente:
+                        type: integer
+                        description: ID do cliente
+                      razaosocial:
+                        type: string
+                        description: Razão social do cliente
+                      nomefantasia:
+                        type: string
+                        description: Nome fantasia do cliente
+                      cpfcnpj:
+                        type: string
+                        description: CPF/CNPJ do cliente
+                      inscricaoestadual:
+                        type: string
+                        description: Inscrição estadual do cliente
+                      endereco:
+                        type: string
+                        description: Endereço do cliente
+                      numero:
+                        type: string
+                        description: Número do endereço
+                      complemento:
+                        type: string
+                        description: Complemento do endereço
+                      bairro:
+                        type: string
+                        description: Bairro
+                      cidade:
+                        type: string
+                        description: Cidade
+                      uf:
+                        type: string
+                        maxLength: 2
+                        description: UF
+                      cep:
+                        type: string
+                        description: CEP
+                      telefone:
+                        type: string
+                        description: Telefone
+                      email:
+                        type: string
 
-  /solicitacoes/{status}/status:
+                        description: Email
+                  valortotal:
+                    type: number
+                    format: double
+                    description: Valor total da requisição
+                  observacao:
+                    type: string
+                    description: Observações
+                  dataentrada:
+                    type: string
+                    format: date-time
+                    description: Data de entrada
+                  dataprevista:
+                    type: string
+                    format: date-time
+                    description: Data prevista
+                  formulas:
+                    type: array
+                    description: Lista de fórmulas
+                    items:
+                      type: object
+                      properties:
+                        seq_formula:
+                          type: integer
+                          description: Sequência da fórmula
+                        id_veiculo:
+                          type: integer
+                          description: ID do veículo
+                        descveiculo:
+                          type: string
+                          description: Descrição do veículo
+                        volume:
+                          type: number
+                          format: float
+                          description: Volume
+                        contem:
+                          type: number
+                          format: float
+                          description: Conteúdo
+                        quantidadereceitas:
+                          type: integer
+                          description: Quantidade de receitas
+                        unidade:
+                          type: string
+                          maxLength: 4
+                          description: Unidade
+                        id_veiculotipo:
+                          type: integer
+                          description: ID do tipo de veículo
+                        descveiculotipo:
+                          type: string
+                          description: Descrição do tipo de veículo
+                        posologia:
+                          type: string
+                          description: Posologia
+                        valortotal:
+                          type: number
+                          description: Valor total
+                        status:
+                          type: integer
+                          format: int16
+                          description: Status da fórmula
+                          enum: [0,1,2,3,4,5,6,7,8,9,10,11]
+                        usuario:
+                          type: string
+                          maxLength: 12
+                          description: Usuário
+                        periododose:
+                          type: integer
+                          description: Período da dose
+                        dosediaria:
+                          type: integer
+                          description: Dose diária
+                        tiporeceita:
+                          type: integer
+                          format: int16
+                          description: Tipo de receita
+                          enum: [0,1,2,3]
+                        desconto:
+                          type: number
+                          description: Desconto
+                        repetida:
+                          type: integer
+                          format: int16
+                          enum: [0,1]
+                          description: Receita repetida
+                        usocontinuo:
+                          type: integer
+                          format: int16
+                          enum: [0,1]
+                          description: Uso contínuo
+                        codigomedico:
+                          type: string
+                          maxLength: 16
+                          description: Código do médico
+                        nomemedico:
+                          type: string
+                          description: Nome do médico
+                        sobrenomemedico:
+                          type: string
+                          description: Sobrenome do médico
+                        dataemissao:
+                          type: string
+                          format: date-time
+                          description: Data de emissão
+                        observacao:
+                          type: string
+                          description: Observação
+                        registro:
+                          type: integer
+                          description: Registro
+                        codigo_cid:
+                          type: string
+                          maxLength: 5
+                          description: Código CID
+                        desc_cid:
+                          type: string
+                          maxLength: 50
+                          description: Descrição CID
+                        composicao:
+                          type: array
+                          description: Lista de produtos
+                          items:
+                            type: object
+                            properties:
+                              id_ordem:
+                                type: integer
+                                description: ID da ordem
+                              id_produto:
+                                type: integer
+                                description: ID do produto
+                              id_sinonimo:
+                                type: integer
+                                description: ID do sinônimo
+                              textoproduto:
+                                type: string
+                                description: Texto do produto
+                              quantidade:
+                                type: number
+                                description: Quantidade
+                              unidade:
+                                type: string
+                                maxLength: 4
+                                description: Unidade
+                              seg_unidade:
+                                type: string
+                                maxLength: 4
+                                description: Segunda unidade
+                              dinamizacao:
+                                type: string
+                                maxLength: 4
+                                description: Dinamização
+                              potencia:
+                                type: integer
+                                description: Potência
+                              notificacaonumero:
+                                type: string
+                                maxLength: 10
+                                description: Número da notificação
+                              notificacaotipo:
+                                type: integer
+                                format: int16
+                                enum: [1,2,3,4,5]
+                                description: Tipo de notificação
+                              notificacaouf:
+                                type: string
+                                maxLength: 2
+                                description: UF da notificação                  
+        '400':
+          description: Erro
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  codigo:
+                    type: integer
+                    description: Código de erro
+                    example: 400
+                  motivo:
+                    type: string
+                    description: Motivo do erro
+                    example: "Bad request"
+  /solicitacoes/{status}/statuscomErro:
+    parameters:
+      - name: status
+        in: path
+        required: true
+        description: Status da solicitação
+        schema:
+          type: string
     get:
       summary: Consulta produção interna por status
       tags:
@@ -548,4 +811,188 @@ paths:
                   codigo:
                     type: integer
                     description: Código de retorno
-                    example:
+                    example: 200
+                  motivo:
+                    type: string
+                    description: Motivo do retorno
+                    example: Sucesso
+        '400':
+          description: Erro
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  codigo:
+                    type: integer
+                    description: Código de erro
+                    example: 400
+                  motivo:
+                    type: string
+                    description: Motivo do erro
+                    example: Bad request
+  /solicitacoes/{filialsolicitacao}/{idsolicitacao}/solicitação:
+    parameters:
+      - name: filialsolicitacao
+        in: path
+        required: true
+        description: Filial da solicitação
+        schema:
+          type: string
+      - name: idsolicitacao
+        in: path
+        required: true
+        description: ID da solicitação
+        schema:
+          type: string
+    get:
+      summary: Consulta de status de solicitações
+      tags:
+        - solicitacoes
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Erro
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  erro:
+                    type: integer
+                    description: Código de retorno
+                    example: 400
+                  motivo:
+                    type: string
+                    description: Motivo do retorno
+                    example: 'Bad request: ID da solicitação inválido'
+  /solicitacoes/{filialsolicitacao}/{idsolicitacao}/status:
+    parameters:
+      - name: filialsolicitacao
+        in: path
+        required: true
+        description: Filial da solicitação
+        schema:
+          type: string
+      - name: idsolicitacao
+        in: path
+        required: true
+        description: ID da solicitação
+        schema:
+          type: string
+    get:
+      summary: Consulta de status de solicitações
+      tags:
+        - solicitacoes
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Erro
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  erro:
+                    type: integer
+                    description: Código de retorno
+                    example: 400
+                  motivo:
+                    type: string
+                    description: Motivo do retorno
+                    example: 'Bad request: ID da solicitação inválido'
+  /solicitacoes/{filialsolicitacao}/{idsolicitacao}:
+    parameters:
+      - name: filialsolicitacao
+        in: path
+        required: true
+        description: Filial da solicitação
+        schema:
+          type: string
+      - name: idsolicitacao
+        in: path
+        required: true
+        description: ID da solicitação
+        schema:
+          type: string
+    post:
+      summary: Atualização de status
+      tags:
+        - solicitacoes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                idstatus:
+                  type: integer
+                  description: Código do status
+                  enum:
+                    - 1
+                    - 2
+                    - 3
+                    - 4
+                    - 5
+                    - 6
+                    - 7
+                    - 8
+                    - 9
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  codigo:
+                    type: integer
+                    description: Código de retorno
+                    example: 200
+                  motivo:
+                    type: string
+                    description: Motivo do retorno
+                    example: Sucesso
+        '400':
+          description: Erro
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  codigo:
+                    type: integer
+                    description: Código de erro
+                    example: 400
+                  motivo:
+                    type: string
+                    description: Motivo do erro
+                    example: ID do status inválido
+components:
+  schemas:
+    SignificadoID-Status:
+      type: object
+      properties:
+        '3':
+          type: string
+          description: Homogeneização
+        '4':
+          type: string
+          description: Confecção
+        '5':
+          type: string
+          description: Envase
+        '6':
+          type: string
+          description: Rotulagem
+        '9':
+          type: string
+          description: Análise
+
+                  
+    
+  

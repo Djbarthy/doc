@@ -831,7 +831,7 @@ paths:
                     type: string
                     description: Motivo do erro
                     example: Bad request
-  /solicitacoes/{filialsolicitacao}/{idsolicitacao}/solicitação:
+  /solicitacoes/{filialsolicitacao}/{idsolicitacao}/solicitacao:
     parameters:
       - name: filialsolicitacao
         in: path
@@ -852,6 +852,76 @@ paths:
       responses:
         '200':
           description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  solicitacoes:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        filialsolicitacao:
+                          type: string
+                          example: "string"
+                        idsolicitacao:
+                          type: integer
+                          example: 0
+                        codigoproduto:
+                          type: string
+                          example: "string"
+                        descricao:
+                          type: string
+                          example: "string"
+                        grupo:
+                          type: string
+                          example: "string"
+                        quantidade:
+                          type: integer
+                          example: 0
+                        unidade:
+                          type: string
+                          example: "string"
+                        datasolicitacao:
+                          type: string
+                          format: date
+                          example: "yyyy-MM-dd"
+                        forma:
+                          type: string
+                          example: "string"
+                        solicitante:
+                          type: string
+                          example: "string"
+                        composicao:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              codigoproduto:
+                                type: string
+                                example: "string"
+                              diluicao:
+                                type: number
+                                example: 0
+                              descricao:
+                                type: string
+                                example: "string"
+                              quantidade:
+                                type: number
+                                example: 0
+                              unidade:
+                                type: string
+                                example: "string"
+                              filiallote:
+                                type: string
+                                example: "string"
+                              idlote:
+                                type: integer
+                                example: 0
+                              codigolote:
+                                type: string
+                                example: "string"
         '400':
           description: Erro
           content:
@@ -888,6 +958,19 @@ paths:
       responses:
         '200':
           description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  idstatus:
+                    type: integer
+                    description: Código do status
+                    example: 7
+                  status:
+                    type: string
+                    description: Descrição do status
+                    example: "Pronto"
         '400':
           description: Erro
           content:
@@ -975,24 +1058,18 @@ paths:
 components:
   schemas:
     SignificadoID-Status:
-      type: object
-      properties:
-        '3':
-          type: string
-          description: Homogeneização
-        '4':
-          type: string
-          description: Confecção
-        '5':
-          type: string
-          description: Envase
-        '6':
-          type: string
-          description: Rotulagem
-        '9':
-          type: string
-          description: Análise
-
+      type: integer
+      enum: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+      description: |
+        1: Entrada
+        2: Separação
+        3: Homogeneização
+        4: Confecção
+        5: Envase
+        6: Rotulagem 
+        7: Pronto
+        8: Entregue
+        9: Análise
                   
     
   

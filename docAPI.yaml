@@ -788,7 +788,7 @@ paths:
                     type: string
                     description: Motivo do erro
                     example: "Bad request"
-  /solicitacoes/{status}/statuscomErro:
+  /solicitacoes/{status}/status:
     parameters:
       - name: status
         in: path
@@ -808,14 +808,45 @@ paths:
               schema:
                 type: object
                 properties:
-                  codigo:
-                    type: integer
-                    description: Código de retorno
-                    example: 200
-                  motivo:
-                    type: string
-                    description: Motivo do retorno
-                    example: Sucesso
+                  solicitacoes:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        filialsolicitacao:
+                          type: string
+                          example: "string"
+                        idsolicitacao:
+                          type: integer
+                          example: 0
+                        codigoproduto:
+                          type: string
+                          example: "string"
+                        descricao:
+                          type: string
+                          example: "string"
+                        grupo:
+                          type: string
+                          example: "string"
+                        quantidade:
+                          type: integer
+                          example: 0
+                        unidade:
+                          type: string
+                          example: "string"
+                        datasolicitacao:
+                          type: string
+                          format: date
+                          example: "2024-01-01"
+                        forma:
+                          type: string
+                          example: "string"
+                        solicitante:
+                          type: string
+                          example: "string"
+                        composicao:
+                          type: array
+                          items: {}
         '400':
           description: Erro
           content:

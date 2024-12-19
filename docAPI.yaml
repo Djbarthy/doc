@@ -1061,14 +1061,14 @@ components:
       type: integer
       enum: [1, 2, 3, 4, 5, 6, 7, 8, 9]
       description: |
-        1: Entrada
-        2: Separação
+        1: Solicitado
+        2: Pesagem
         3: Homogeneização
         4: Confecção
         5: Envase
         6: Rotulagem 
         7: Pronto
-        8: Entregue
+        8: Cancellado
         9: Análise
                   
     
